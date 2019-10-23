@@ -1,20 +1,38 @@
 import * as ActionTypes from '../actions/actionTypes';
 
 const initialState = {
-    isLogin: false,
-    user: null,
-    jwtToken: null,
+    isLogin: false||localStorage.getItem('token'),
+    username: localStorage.getItem('username'),
+    jwtToken: localStorage.getItem('token'),
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.LOGIN: {
-            const { user, token } = action.payload;
+            const { username, token } = action.payload;
             const newState = {
                 ...state,
                 isLogin: true,
-                user,
+                username,
                 jwtToken: token,
+            }
+            return newState;
+        }
+        case ActionTypes.REGISTER: {
+            const { username, token } = action.payload;
+            const newState = {
+                ...state,
+                isLogin: true,
+                username,
+                jwtToken: token,
+            }
+            return newState;
+        } case ActionTypes.LOGOUT: {
+            const newState = {
+                ...state,
+                isLogin: false,
+                user: null,
+                jwtToken: null,
             }
             return newState;
         }

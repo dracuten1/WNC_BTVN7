@@ -1,34 +1,37 @@
 import * as ActionType from './actionTypes';
+import axios from 'axios';
 
 export const register = (user) => {
     return (dispatch) => {
-        setTimeout(() => {
-            console.log('Register successful',user);
+        axios.post('localhost:3000/users/register', user).then(res => {
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('username', user.name);
             dispatch({
                 type: ActionType.REGISTER,
-                payload: user
+                payload: res.data
             });
-        }, 2000);
+        })
     }
 }
 
 export const login = (user) => {
     return (dispatch) => {
-        setTimeout(() => {
-            console.log('Login successful',user);
+        axios.post('localhost:3000/users/login', user).then(res => {
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('username', user.name);
             dispatch({
                 type: ActionType.LOGIN,
-                payload: user
+                payload: res.data
             });
-        }, 2000);
+        })
     }
 }
 export const logout = () => {
     return (dispatch) => {
-        setTimeout(() => {
-            dispatch({
-                type: ActionType.LOGOUT
-            });
-        }, 2000);
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        dispatch({
+            type: ActionType.LOGOUT
+        });
     }
 }
