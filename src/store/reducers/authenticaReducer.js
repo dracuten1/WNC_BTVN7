@@ -1,9 +1,13 @@
 import * as ActionTypes from '../actions/actionTypes';
+import updateObject from '../utility';
 
 const initialState = {
-    isLogin: false||localStorage.getItem('token'),
+    isAuthenticated: false || localStorage.getItem('token'),
     username: localStorage.getItem('username'),
     jwtToken: localStorage.getItem('token'),
+    authRedirectPath: '/game',
+    error:false,
+    errMsg:'',
 }
 
 const reducer = (state = initialState, action) => {
@@ -12,7 +16,7 @@ const reducer = (state = initialState, action) => {
             const { username, token } = action.payload;
             const newState = {
                 ...state,
-                isLogin: true,
+                isAuthenticated: true,
                 username,
                 jwtToken: token,
             }
@@ -22,7 +26,7 @@ const reducer = (state = initialState, action) => {
             const { username, token } = action.payload;
             const newState = {
                 ...state,
-                isLogin: true,
+                isAuthenticated: true,
                 username,
                 jwtToken: token,
             }
@@ -30,14 +34,19 @@ const reducer = (state = initialState, action) => {
         } case ActionTypes.LOGOUT: {
             const newState = {
                 ...state,
-                isLogin: false,
+                isAuthenticated: false,
                 user: null,
                 jwtToken: null,
             }
             return newState;
+        } case ActionTypes.ERROR:{
+            return updateObject(state, {
+                error: true,
+                errMsg: action.payload.msg
+            });
         }
         default: {
-            return 0;
+            return state;
         }
     }
 }

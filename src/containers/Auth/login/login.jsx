@@ -5,24 +5,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import FacebookLogin from 'react-facebook-login';
+import { GoogleLogin } from 'react-google-login';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -64,6 +53,7 @@ export default function SignIn(props) {
         </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
+                        error={props.error}
                         variant="outlined"
                         margin="normal"
                         required
@@ -76,6 +66,7 @@ export default function SignIn(props) {
                         autoFocus
                     />
                     <TextField
+                        error={props.error}
                         variant="outlined"
                         margin="normal"
                         required
@@ -88,6 +79,7 @@ export default function SignIn(props) {
                         onChange={(event) => props.changed(event, "password")}
                         autoComplete="current-password"
                     />
+
                     <Button
                         type="submit"
                         onClick={onLogin}
@@ -107,9 +99,19 @@ export default function SignIn(props) {
                     </Grid>
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
+            <div>
+                <FacebookLogin
+                        appId="481186559372148"
+                        autoLoad={false}
+                        fields="name,email,picture"
+                        callback={(response)=>props.onFacebookCallback(response)} />
+                <GoogleLogin
+                clientId="690822563928-r8kplbgfdmtbe7a362b7jrfd0bhuhk40.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={(response)=>props.onSuccess(response)}
+                onFailure={props.onFailure}
+            />
+            </div>
         </Container>
     );
 }

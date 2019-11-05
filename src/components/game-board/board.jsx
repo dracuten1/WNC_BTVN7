@@ -25,13 +25,9 @@ class Board extends React.Component {
     }
 
     render() {
-        const { player, squares } = this.props;
+        const { squares } = this.props;
         return (
             <div>
-
-                <div className="board">
-                    <h1>{player === 1 ? 'X' : 'O'}</h1>
-                </div>
                 <div>
                     {squares.map(squareRow => this.renderRow(squareRow))}
                 </div>

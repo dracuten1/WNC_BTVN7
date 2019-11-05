@@ -124,8 +124,13 @@ class GameCaro extends Component {
                 </div>
                     : null
                 }
-                <button type="button" onClick={this.init}>Play again</button>
-                <SquareContext.Provider value={
+                <div>
+                    <div className="board">
+                        <h1>{player === 1 ? 'X' : 'O'}</h1>
+                        <button type="button" onClick={this.init}>Play again</button>
+                    </div>
+                    
+                    <SquareContext.Provider value={
                     {
                         value: 1,
                         onSquareClick: (square) => this.handleClick(square)
@@ -133,26 +138,20 @@ class GameCaro extends Component {
                 }>
                     <Board squares={boardSquares}
                         win={win}
-                        player={player}
                     />
                 </SquareContext.Provider>
-                {
-                    win === false ?
-                        <ol>
-                            <HistoryBoard current={currentStep} step={history.length} arrange={arrangeAsend} backToStep={(step) => this.backToStep(step)} />
-                        </ol> : null
-                }
-                {/* <ol>
-                    <li>
-                        <button type="button" onClick={this.back}> Step back </button>
-                        <button type="button" onClick={this.forward}> Step forward </button>
-                    </li>
-                </ol> */}
+                </div>
                 <ol>
                     <li>
                         <button type="button" onClick={() => this.setState({ arrangeAsend: true })}> Ascending </button>
                         <button type="button" onClick={() => this.setState({ arrangeAsend: false })}> Descending </button>
                     </li>
+                    {
+                        win === false ?
+                            <ol>
+                                <HistoryBoard current={currentStep} step={history.length} arrange={arrangeAsend} backToStep={(step) => this.backToStep(step)} />
+                            </ol> : null
+                    }
                 </ol>
             </div>
         );

@@ -22,8 +22,6 @@ const historyBoard = props => {
             <button className="button" type="button" style={style} onClick={() => props.backToStep(step)}>Jump to {step}</button>
         </li>
     }
-
-
     )
 }
 
