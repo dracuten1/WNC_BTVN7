@@ -70,7 +70,7 @@ class GameCaro extends Component {
         // eslint-disable-next-line react/destructuring-assignment
         this.props.selectedSquare(square);
         this.props.machineSelect();
-        
+
     }
 
     backToStep = (step) => {
@@ -81,20 +81,21 @@ class GameCaro extends Component {
         const { boardSquares, player, win, history, currentStep } = this.props;
         let authRedirect = null;
         if (!this.props.isAuthenticated) {
-            console.log(this.props);
+            // console.log(this.props);
             authRedirect = <Redirect to={'/'} />
         }
         return (
             <div className="game">
                 {authRedirect}
-                {win ? <div>
-                    <h1>Congratulation Player {player === 1 ? 'O' : 'X'}</h1>
-                </div>
-                    : null
-                }
+
                 <div>
                     <div className="board">
-                        <h1>{player === 1 ? 'X' : 'O'}</h1>
+                        {win ?
+                            <h1>Congratulation Player {player === 1 ? 'O' : 'X'}</h1>
+
+                            : <h1>{player === 1 ? 'X' : 'O'}</h1>
+                        }
+
                         <button type="button" onClick={this.init}>Play again</button>
                     </div>
 
