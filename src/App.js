@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <Layout>
         <Switch>
-          <Route path="/game" component={GameCaro} />
+          <Route path="/offline" component={GameCaro} />
           <Route path="/menu" component={Menu} />
           <Route path="/" component={Auth} />
         </Switch>

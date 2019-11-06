@@ -7,6 +7,11 @@ export const sqaureSelected = (payLoadsData) => {
     };
 };
 
+export const machineChose = () => {
+    return {
+        type: ActionTypes.MACHINE_CHOSE,
+    };
+};
 export const initGame = (payLoadsdata) => {
     return {
         type: ActionTypes.INIT_GAME,

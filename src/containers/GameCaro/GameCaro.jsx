@@ -69,37 +69,11 @@ class GameCaro extends Component {
         // this.setState({ boardSquares: squaresBoard });
         // eslint-disable-next-line react/destructuring-assignment
         this.props.selectedSquare(square);
+        this.props.machineSelect();
+        
     }
 
     backToStep = (step) => {
-        // const newBoardHistory = this.getBlankBoard();
-        // const { history } = this.state;
-        // for (let i = 0; i < step; i += 1) {
-        //     const lo = history[i].location;
-        //     newBoardHistory.map(boardRow => {
-        //         boardRow.map(square => {
-        //             const newSquare = square;
-        //             newSquare.isSelected = false;
-        //             if (newSquare.key === lo) {
-        //                 newSquare.value = history[i].player;
-        //                 newSquare.select();
-        //             }
-        //             return newSquare;
-        //         })
-        //         return boardRow;
-        //     })
-        // }
-        // // console.log(step);
-        // let player = 1;
-        // if (step !== 0) {
-        //     player = history[step - 1].player === 1 ? 2 : 1;
-        // }
-        // this.setState({
-        //     boardSquares: newBoardHistory,
-        //     player,
-        //     currentStep: step
-        // })
-        // eslint-disable-next-line react/destructuring-assignment
         this.props.setStep(step);
     }
     render = () => {
@@ -123,17 +97,17 @@ class GameCaro extends Component {
                         <h1>{player === 1 ? 'X' : 'O'}</h1>
                         <button type="button" onClick={this.init}>Play again</button>
                     </div>
-                    
+
                     <SquareContext.Provider value={
-                    {
-                        value: 1,
-                        onSquareClick: (square) => this.handleClick(square)
-                    }
-                }>
-                    <Board squares={boardSquares}
-                        win={win}
-                    />
-                </SquareContext.Provider>
+                        {
+                            value: 1,
+                            onSquareClick: (square) => this.handleClick(square)
+                        }
+                    }>
+                        <Board squares={boardSquares}
+                            win={win}
+                        />
+                    </SquareContext.Provider>
                 </div>
                 <ol>
                     <li>
@@ -166,6 +140,7 @@ const mapDispatchToProps = dispatch => {
     return {
         initGameRefactor: () => dispatch(actionCreators.initGame()),
         selectedSquare: (square) => dispatch(actionCreators.sqaureSelected(square)),
+        machineSelect: () => dispatch(actionCreators.machineChose()),
         setStep: (step) => dispatch(actionCreators.setStep(step)),
     }
 };
