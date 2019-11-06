@@ -18,7 +18,7 @@ class Menu extends Component {
     render() {
         let authRedirect = null;
         if (!this.props.isAuthenticated) {
-            console.log(this.props);
+            //console.log(this.props);
             authRedirect = <Redirect to="/" />;
         }
         let gameRedirect = null;
@@ -33,7 +33,7 @@ class Menu extends Component {
                 display: 'none',
             },
         }));
-        return (<>
+        return (<div>
             {authRedirect}
             {gameRedirect}
             <Button variant="contained" className={classes.button} onClick={() => this.setState({ path: 'online', redirect: true })}>
@@ -41,11 +41,11 @@ class Menu extends Component {
       </Button>
             <Button variant="contained" className={classes.button} onClick={() => this.setState({ path: 'offline', redirect: true })}>
                 Chơi với máy
-      </Button> 
+      </Button>
             <Button variant="contained" className={classes.button} onClick={this.props.logout}>
                 Đăng xuất
       </Button>
-        </>
+        </div>
         )
     }
 }

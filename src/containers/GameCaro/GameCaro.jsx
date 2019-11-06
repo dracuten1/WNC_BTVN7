@@ -6,7 +6,7 @@ import Board from '../../components/game-board/board';
 import SquareContext from '../../contexts/square-context';
 import HistoryBoard from '../../components/history-board/history-board';
 import * as actionCreators from '../../store/actions/gameActions';
-
+import { logout } from '../../store/actions/authenticaActions';
 import './GameCaro.css';
 
 class GameCaro extends Component {
@@ -96,7 +96,8 @@ class GameCaro extends Component {
                             : <h1>{player === 1 ? 'X' : 'O'}</h1>
                         }
 
-                        <button type="button" onClick={this.init}>Play again</button>
+                        <button type="button" onClick={this.init}>Chơi lại</button>
+                        <button type="button" onClick={this.props.logout}>Đăng xuất</button>
                     </div>
 
                     <SquareContext.Provider value={
@@ -143,6 +144,7 @@ const mapDispatchToProps = dispatch => {
         selectedSquare: (square) => dispatch(actionCreators.sqaureSelected(square)),
         machineSelect: () => dispatch(actionCreators.machineChose()),
         setStep: (step) => dispatch(actionCreators.setStep(step)),
+        logout:()=>dispatch(logout())
     }
 };
 
