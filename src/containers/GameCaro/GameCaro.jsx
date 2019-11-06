@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
 import Board from '../../components/game-board/board';
-import './GameCaro.css';
 import SquareContext from '../../contexts/square-context';
 import HistoryBoard from '../../components/history-board/history-board';
 import * as actionCreators from '../../store/actions/gameActions';
+
+import './GameCaro.css';
 
 class GameCaro extends Component {
     constructor(props) {
@@ -99,26 +102,17 @@ class GameCaro extends Component {
         // eslint-disable-next-line react/destructuring-assignment
         this.props.setStep(step);
     }
-
-    // back = () => {
-    //     const { currentStep } = this.props;
-    //     if (currentStep > 0) {
-    //         this.backToStep(currentStep - 1);
-    //     }
-    // }
-
-    // forward = () => {
-    //     const { currentStep, history } = this.props;
-    //     if (currentStep < history.length) {
-    //         this.backToStep(currentStep + 1);
-    //     }
-    // }
-
     render = () => {
         const { arrangeAsend } = this.state;
         const { boardSquares, player, win, history, currentStep } = this.props;
+        let authRedirect = null;
+        if (!this.props.isAuthenticated) {
+            console.log(this.props);
+            authRedirect = <Redirect to={'/'} />
+        }
         return (
             <div className="game">
+                {authRedirect}
                 {win ? <div>
                     <h1>Congratulation Player {player === 1 ? 'O' : 'X'}</h1>
                 </div>
@@ -164,6 +158,7 @@ const mapStateToProps = state => {
         player: state.grc.player,
         win: state.grc.win,
         history: state.grc.history,
+        isAuthenticated: state.auth.isAuthenticated,
     }
 };
 

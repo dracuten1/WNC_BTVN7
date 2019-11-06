@@ -1,9 +1,9 @@
 import * as ActionType from './actionTypes';
-import axios from 'axios';
+import axios from '../../axios-backend';
 
 export const register = (user) => {
     return (dispatch) => {
-        axios.post('localhost:8626/auth/register', user).then(res => {
+        axios.post('/auth/register', user).then(res => {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('username', user.id);
             dispatch({
@@ -16,7 +16,7 @@ export const register = (user) => {
 
 export const login = (user) => {
     return (dispatch) => {
-        axios.post('http://localhost:8626/auth/login', user).then(res => {
+        axios.post('/auth/login', user).then(res => {
             if (res.data.err) {
                 dispatch({
                     type: ActionType.ERROR,
@@ -43,7 +43,7 @@ export const googleLogin = (response) => {
         cache: 'default'
     };
     return (dispatch) => {
-        fetch('http://localhost:8626/auth/google', options).then(r => {
+        fetch('/auth/google', options).then(r => {
             r.json().then(data => {   
                 console.log(data);
                 localStorage.setItem('token', data.token);
@@ -66,7 +66,7 @@ export const facebookLogin = (response) => {
         cache: 'default'
     };
     return (dispatch) => {
-        fetch('http://localhost:8626/auth/facebook', options).then(r => {
+        fetch('/auth/facebook', options).then(r => {
             r.json().then(data => {   
                 console.log(data);
                 localStorage.setItem('token', data.token);

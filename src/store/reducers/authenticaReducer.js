@@ -5,7 +5,7 @@ const initialState = {
     isAuthenticated: false || localStorage.getItem('token'),
     username: localStorage.getItem('username'),
     jwtToken: localStorage.getItem('token'),
-    authRedirectPath: '/game',
+    authRedirectPath: '/menu',
     error:false,
     errMsg:'',
 }
